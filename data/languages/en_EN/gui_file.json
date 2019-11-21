@@ -1,0 +1,77 @@
+{
+  "menu": {
+    "resume": "Resume",
+    "settings": "Settings",
+    "main_menu": "Main menu",
+    "exit": "Exit"
+  },
+  "settings": {
+    "resume": "Resume",
+    "antialias": "Antialias: ",
+    "fullscreen": "Fullscreen: ",
+    "font_size": "Font: ",
+    "resolution": "Resolution: ",
+    "language": "Language: ",
+    "actual_language": "English",
+    "save_settings": "Save settings",
+    "change_gui": "Change GUI"
+    },
+  "player_gui": {
+    "resume": "Resume",
+    "health": "Health bar: ",
+    "skills": "Skills bar: ",
+    "experience": "Experience bar: ",
+    "location": "Location bar: ",
+    "grid": "Grid: "
+  },
+  "container": {
+    "chest": "Chest",
+    "take_all": "Take all items"
+  },
+  "inventory":{
+    "title": "Inventory",
+    "weight": "Weight",
+    "damage": "DMG",
+    "armor": "armor"
+  },
+  "item_details": {
+    "take": "Take",
+    "put_down": "Put down",
+    "wear_up": "Wear up",
+    "wear_off": "Wear off",
+    "drop": "Drop",
+    "use": "Use",
+    "information": "Information",
+    "drink": "Drink"
+  },
+  "item_information": {
+    "title": "Item preview",
+    "requirements": "Requirements: ",
+    "name": "Name: ",
+    "type": "Type: ",
+    "weight": "Weight: ",
+    "all_weight": "All weight: ",
+    "value": "Value: ",
+    "damage": "Damage: ",
+    "range": "Range: ",
+    "armor": "Armor: ",
+    "modifiers": "Modifiers: ",
+    "agility": "Agility: ",
+    "observation": "Observation: ",
+    "level": "Level: ",
+    "strength": "Strength: ",
+    "one_handed": "One handed",
+    "two_handed": "Two handed",
+    "numbers_of_turns": "Turn number: ",
+    "charisma": "Charisma: ",
+    "chance_to_dodge": "Chance to dodge: ",
+    "sight": "Sight: ",
+    "max_health_points": "Max HP: ",
+    "health_points": "HP: ",
+    "luck": "Lucky: ",
+    "chance_to_deflection": "Chance to deflection: ",
+    "chance_to_block": "Chance to block: ",
+    "chance_to_critical_hit": "Chance to crit. hit: ",
+    "critical_hit_power": "Critical power hit: "
+  }
+}

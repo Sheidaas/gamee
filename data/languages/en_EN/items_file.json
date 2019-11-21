@@ -1,0 +1,38 @@
+{
+  "type": {
+    "Sword": "Sword",
+    "Potion": "Potion",
+    "Modulator": "Modulator",
+    "BodyArmor": "Body Armor",
+    "Boots": "Boots",
+    "Helmet": "Helmet",
+    "Gloves": "Gloves",
+    "Leggings": "Leggings"
+  },
+  "items": {
+    "1": {
+      "name": "Telescopic Baton",
+      "description": "This is sword.."
+    },
+    "2": {
+      "name": "Potion",
+      "description": "This is potion.",
+      "modifier": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "3": {
+      "name": "Modulator",
+      "description": "This is modulator.",
+      "modifier": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "4": {
+      "name": "Body Armor",
+      "description": "This is body armor."
+    }
+  }
+}

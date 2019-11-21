@@ -1,0 +1,38 @@
+{
+  "type": {
+    "Sword": "Miecz",
+    "Potion": "Mikstura",
+    "Modulator": "Modulator",
+    "BodyArmor": "Napierśnik",
+    "Boots": "Buty",
+    "Helmet": "Hełm",
+    "Gloves": "Rękawice",
+    "Leggings": "Spodnie"
+  },
+  "items": {
+    "1": {
+      "name": "Miecz",
+      "description": "To jest miecz, nie żartuję."
+    },
+    "2": {
+      "name": "Ujemna Siła",
+      "description": "To jest mikstura, nie żartuję.",
+      "modifier": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "3": {
+      "name": "Modulator",
+      "description": "To jest modulator, nie żartuję.",
+      "modifier": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "4": {
+      "name": "Napierśnik",
+      "description": "To jest napierśnik, nie żartuję."
+    }
+  }
+}

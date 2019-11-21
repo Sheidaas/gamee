@@ -1,0 +1,5 @@
+ IDEA: ukryte skrzynki, które bohater może znaleźć dzieki udanemu rzutowi na obserwacje/spostrzegawczosc a jak nie wyjdzie to nie pojawi sie na mapie
+ IDEA: jadalne motyle jako narkotyk pobudzający
+ IDEA: rozmawianie ze sobą (postacią) w myślach
+ IDEA: zapisywanie poczynań gracza, zaczynając od prostych interakcji
+       z innymi postaciami a kończąc interakcje i wykonywanie określonych czynności za/przeciw morałami frakcji

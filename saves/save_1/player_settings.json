@@ -1,0 +1,13 @@
+{
+  "key_layout": {
+    "move": {
+      "119": "FORWARD",
+      "115": "BACKWARD",
+      "97": "TO_LEFT",
+      "100": "TO_RIGHT"
+    },
+    "interfaces": {
+      "105": "INVENTORY"
+    }
+  }
+}

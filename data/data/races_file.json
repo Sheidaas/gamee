@@ -1,0 +1,104 @@
+{
+    "0": {
+        "name": "Atikhar",
+        "description": "DESCRIPTION",
+        "relations": {
+            "1": [
+                50,
+                "friendly"
+            ],
+            "2": [
+                10,
+                "neutral"
+            ]
+        },
+        "skills": [0],
+        "modifier": {
+            "name": "Be Atikhar",
+            "description": "MODIFIER DESCRIPTION",
+            "effects": {
+                "health_points": 0,
+                "max_health_points": 10,
+                "strength": -3,
+                "agility": -2,
+                "observation": 4,
+                "charisma": 1,
+                "luck": -1,
+                "sight": 3,
+                "chance_to_deflection": 0.0,
+                "chance_to_block": 0.0,
+                "chance_to_dodge": 2.0,
+                "chance_to_critical_hit": 0.0,
+                "critical_hit_power": 0.0
+            }
+        }
+    },
+    "1": {
+        "name": "Deraan",
+        "description": "DESCRIPTION",
+        "relations": {
+            "0": [
+                50,
+                "friendly"
+            ],
+            "2": [
+                10,
+                "neutral"
+            ]
+        },
+        "skills": [0],
+        "modifier": {
+            "name": "Be Deraan",
+            "description": "MODIFIER DESCRIPTION",
+            "effects": {
+                "health_points": 0,
+                "max_health_points": 0,
+                "strength": 3,
+                "agility": 4,
+                "observation": -3,
+                "charisma": -2,
+                "luck": 1,
+                "sight": -2,
+                "chance_to_deflection": 0.0,
+                "chance_to_block": 0.0,
+                "chance_to_dodge": 2.0,
+                "chance_to_critical_hit": 0.0,
+                "critical_hit_power": 0.0
+            }
+        },
+    "2": {
+        "name": "Human",
+        "description": "DESCRIPTION",
+        "relations": {
+            "1": [
+                10,
+                "neutral"
+            ],
+            "0": [
+                10,
+                "neutral"
+            ]
+        },
+        "skills": [0],
+        "modifier": {
+            "name": "Be Human",
+            "description": "MODIFIER DESCRIPTION",
+            "effects": {
+                "health_points": 0,
+                "max_health_points": 0,
+                "strength": 0,
+                "agility": 0,
+                "observation": 5,
+                "charisma": 0,
+                "luck": 0,
+                "sight": 4,
+                "chance_to_deflection": 0.0,
+                "chance_to_block": 0.0,
+                "chance_to_dodge": 0.2,
+                "chance_to_critical_hit": 0.0,
+                "critical_hit_power": 0.0
+            }
+        }
+    }
+    }
+}

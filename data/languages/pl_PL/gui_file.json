@@ -1,0 +1,77 @@
+{
+  "menu": {
+    "resume": "Wznów",
+    "settings": "Ustawienia",
+    "main_menu": "Menu główne",
+    "exit": "Wyjście z gry"
+  },
+  "settings": {
+    "resume": "Wznów",
+    "antialias": "Antialias: ",
+    "fullscreen": "Pełny ekran: ",
+    "font_size": "Czcionka: ",
+    "resolution": "Rozdzielczość: ",
+    "language": "Język: ",
+    "actual_language": "Polski",
+    "save_settings": "Zapisz ustawienia",
+    "change_gui": "Zmień GUI"
+  },
+  "player_gui": {
+    "resume": "Wznów",
+    "health": "Pasek zdrowia: ",
+    "skills": "Pasek umiejętności: ",
+    "experience": "Pasek doświadczenia ",
+    "location": "Pasek lokacji: ",
+    "grid": "Siatka: "
+  },
+  "container": {
+    "chest": "Skrzynia",
+    "take_all": "Weź wszystko"
+  },
+    "inventory":{
+    "title": "Ekwipunek",
+    "weight": "Waga: ",
+    "damage": "OBR: ",
+    "armor": "Pancerz: "
+  },
+  "item_details": {
+    "take": "Weź",
+    "wear_up": "Załóż",
+    "wear_off": "Zdejmij",
+    "drop": "Wyrzuć",
+    "use": "Użyj",
+    "information": "Informacje",
+    "put_down": "Odłóż",
+    "drink": "Wypij"
+  },
+  "item_information": {
+    "title": "Podgląd przedmiotu",
+    "requirements": "Wymagania: ",
+    "name": "Nazwa: ",
+    "type": "Typ: ",
+    "weight": "Waga: ",
+    "all_weight": "Łączna waga: ",
+    "value": "Wartość: ",
+    "damage": "Obrażenia: ",
+    "range": "Zasięg: ",
+    "armor": "Pancerz: ",
+    "modifiers": "Modyfikatory: ",
+    "agility": "Zręczność: ",
+    "observation": "Obserwacja: ",
+    "level": "Poziom: ",
+    "strength": "Siła: ",
+    "one_handed": "Jednoręczny",
+    "two_handed": "Dwuręczny",
+    "numbers_of_turns": "Ilość tur: ",
+    "charisma": "Charyzma: ",
+    "chance_to_dodge": "Szansa na unik: ",
+    "sight": "Wzrok: ",
+    "max_health_points": "Max PŻ: ",
+    "health_points": "PŻ: ",
+    "luck": "Szczęście: ",
+    "chance_to_deflection": "Szansa na odbicie: ",
+    "chance_to_block": "Szansa na blok: ",
+    "chance_to_critical_hit": "Szansa na uderzenie kryt.: ",
+    "critical_hit_power": "Moc kryt. uderzenia: "
+  }
+}

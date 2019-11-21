@@ -1,0 +1,31 @@
+{
+  "relations":
+  {
+    "friendly": "Friendly",
+    "neutral": "Neutral"
+  },
+  "0": {
+    "name": "Atikhar",
+    "description": "desc",
+    "modifier": {
+      "name": "Be Atikhar",
+      "description": "desc"
+    }
+  },
+  "1": {
+    "name": "Deraan",
+    "description": "desc",
+    "modifier": {
+      "name": "Be Deraan",
+      "description": "desc"
+    }
+  },
+  "2": {
+    "name": "Human",
+    "description": "desc",
+    "modifier": {
+      "name": "Be Human",
+      "description": "desc"
+    }
+  }
+}

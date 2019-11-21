@@ -1,0 +1,45 @@
+{
+    "0": {
+        "equipment": {
+            "inventory": [],
+            "equipment_weight": 0,
+            "dressed_armor": {
+                "hands": null,
+                "head": null,
+                "body": null,
+                "right-hand": null,
+                "foots": null,
+                "left-hand": null,
+                "legs": null,
+                "modulator": null
+            }
+        },
+        "map_sprite": "1.png",
+        "portrait": "",
+        "last_name": "Wrzeszcz",
+        "age": "19",
+        "gender": "2",
+        "abilities": [0],
+        "race": 1,
+        "coordinate": [10, 10],
+        "statistics": {
+            "level": 0,
+            "sight": 8,
+            "critical_hit_power": 1.5,
+            "chance_to_critical_hit": 0.0,
+            "luck": 0,
+            "chance_to_dodge": 0.0,
+            "strength": 0,
+            "health_points": 873,
+            "chance_to_block": 0.0,
+            "max_health_points": 1500,
+            "experience": 500,
+            "experience_to_next_level": 9000,
+            "modifiers": [],
+            "observation": 0,
+            "chance_to_deflection": 0.0,
+            "agility": 0
+        },
+        "name": "Maciej"
+    }
+}

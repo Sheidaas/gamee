@@ -1,0 +1,88 @@
+{
+    "1": {
+        "type": "Sword",
+        "value": 100,
+        "weight": 0.4,
+        "image": "sword.png",
+        "requirements": {
+            "agility": 0,
+            "observation": 0,
+            "level": 0,
+            "strength": 0
+        },
+        "founded": false,
+        "min_damage": 5,
+        "max_damage": 10,
+        "range": 1,
+        "one_handed": true
+    },
+    "2": {
+        "type": "Potion",
+        "value": 100,
+        "weight": 0.2,
+        "image": "potion.png",
+        "modifier": {
+            "every_turn": false,
+            "turns_to_end": 4,
+            "effects": {
+                "charisma": 0,
+                "chance_to_dodge": 0.0,
+                "strength": -2,
+                "sight": 0,
+                "observation": 0,
+                "agility": 0,
+                "max_health_points": 0,
+                "health_points": 0,
+                "luck": 0,
+                "chance_to_deflection": 0.0,
+                "chance_to_block": 0.0,
+                "chance_to_critical_hit": 0.0,
+                "critical_hit_power": 0.0
+            }
+        }
+    },
+    "3": {
+        "type": "Modulator",
+        "value": 100,
+        "weight": 0.4,
+        "image": "data/graphic/resources/squares/grass/grass_big.png",
+        "requirements": {
+            "level": 0,
+            "observation": 0,
+            "strength": 0,
+            "agility": 0
+        },
+        "founded": false,
+        "modifier": {
+            "effects": {
+                "charisma": 0,
+                "chance_to_dodge": 0.0,
+                "strength": 0,
+                "sight": 0,
+                "observation": 0,
+                "agility": 0,
+                "max_health_points": 0,
+                "health_points": 0,
+                "luck": 0,
+                "chance_to_deflection": 0.0,
+                "chance_to_block": 0.0,
+                "chance_to_critical_hit": 0.0,
+                "critical_hit_power": 0.0
+            }
+        }
+    },
+    "4": {
+        "type": "BodyArmor",
+        "value": 100,
+        "weight": 0.4,
+        "image": "",
+        "requirements": {
+            "level": 0,
+            "observation": 0,
+            "strength": 0,
+            "agility": 0
+        },
+        "founded": false,
+        "armor": 10
+    }
+}
