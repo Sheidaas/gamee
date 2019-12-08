@@ -1,7 +1,8 @@
 import pygame
+from .gui_abstract_object import GuiAbstractObject
 
 
-class Experience:
+class Experience(GuiAbstractObject):
 
     def __init__(self, x, y, player, screen, absolutive_path):
         self.path = absolutive_path

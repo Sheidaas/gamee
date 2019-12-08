@@ -75,3 +75,23 @@ class LoadedResourcesMenager:
         for sprite in self.objects_sprite_menager.sprites():
             if tuple(sprite.small_position) == small_position:
                 return sprite
+
+    def return_object_small_position_by_big_position(self, object, mouse):
+        area = (object.big_position[0],
+                object.big_position[1],
+                object.big_position[0] + 75,
+                object.big_position[1] + 75)
+        print(area, mouse)
+        if mouse[0] >= area[0] and mouse[0] <= area[2] and mouse[1] >= area[1] and mouse[1] <= area[3]:
+            return object.small_position
+        return False
+
+    def is_clicked_in_sprite(self, sprite, mouse):
+        area = (sprite.big_position[0] * self.screen.engine.settings.graphic['screen']['resolution_scale'][0],
+                sprite.big_position[1] * self.screen.engine.settings.graphic['screen']['resolution_scale'][1],
+                (sprite.big_position[0] + sprite.image.get_size()[0]) * self.screen.engine.settings.graphic['screen']['resolution_scale'][0],
+                (sprite.big_position[1] + sprite.image.get_size()[1])* self.screen.engine.settings.graphic['screen']['resolution_scale'][1] )
+
+        if mouse[0][0] >= area[0] and mouse[0][0] <= area[2] and mouse[0][1] >= area[1] and mouse[0][1] <= area[3]:
+            return True
+        return False

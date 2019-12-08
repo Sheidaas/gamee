@@ -1,5 +1,11 @@
 import json
 
+class Settings:
+
+    def __init__(self):
+        self.graphic = {}
+        self.primary_settings = {}
+
 
 class SettingsLoader:
 
@@ -22,9 +28,3 @@ class SettingsLoader:
         settings.primary_settings = self.settings['1']
         settings.graphic = self.settings['2']
         return settings
-
-class Settings:
-
-    def __init__(self):
-        self.graphic = {}
-        self.primary_settings = {}

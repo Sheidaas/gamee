@@ -1,6 +1,7 @@
 class ObjectOnMap:
 
     def __init__(self):
+        self.id = 0
         self.coordinate = []
         self.name = ''
 
@@ -47,5 +48,3 @@ class ItemsAtFloor(Chest):
 
     def __init__(self):
         super().__init__()
-
-

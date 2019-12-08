@@ -58,7 +58,9 @@ class Drawer:
         self.positions_square = []
         self.center_view = (550, 300)                                  # squares vertex in pixels
         self.square_size_in_pixel = (0, 0)
-        self.camera = Camera((screen.engine.settings.graphic['screen']['resolution_x'], screen.engine.settings.graphic['screen']['resolution_y']), (0, 0), [])
+        self.camera = Camera((screen.engine.settings.graphic['screen']['resolution_x'],
+                              screen.engine.settings.graphic['screen']['resolution_y']),
+                              (0, 0), [])
 
     def render_terrain(self, screen, persons_id: list):
         for person_id in persons_id:
@@ -132,11 +134,6 @@ class Drawer:
                 else:
                     self.gui['player']['hub']['experience'].render()
 
-            if gui['item_details']:
-                if screen.mouse[1][0]:
-                    self.is_mouse_clicked_in_detail('item_details', screen.mouse[0])
-                    screen.mouse = (None, (0, 0, 0))
-
             if gui['container']:
                 if self.gui['container']['graphic_object'] is None:
                     self.gui['container']['graphic_object'] = container.Containter(self.gui['container']['container'], screen)
@@ -148,29 +145,6 @@ class Drawer:
                         gui['container'] = False
                         self.gui['container']['container'] = None
                         self.gui['container']['graphic_object'] = None
-                    if screen.mouse[1][0]:
-                        if self.is_mouse_clicked_container('container', screen.mouse[0], 'left', screen.engine.return_player(), screen):
-                            if gui['container']:
-                                self.gui['container']['graphic_object'] = None
-                                self.gui['container']['graphic_object'] = container.Containter(
-                                    self.gui['container']['container'], screen)
-                                self.gui['container']['graphic_object'].create(screen, screen.engine.database.item_database)
-
-                            if gui['inventory']:
-                                self.gui['player']['inventory'] = None
-                                self.gui['player']['inventory'] = inventory.Inventory(screen,
-                                                                                      screen.engine.return_player().equipment)
-
-                                self.gui['player']['inventory'].create(screen, screen.engine.database.item_database)
-                                self.gui['player']['inventory'].render()
-                            screen.mouse = (None, (0, 0, 0))
-
-                    elif screen.mouse[1][2]:
-                        if self.is_mouse_clicked_container('container', screen.mouse[0], 'right', screen.engine.return_player(), screen):
-                            self.gui['item_details']['graphic_object'] = item_details.Details(screen, 'container', screen.mouse[0])
-                            self.gui['item_details']['graphic_object'].create()
-
-                            screen.mouse = (None, (0, 0, 0))
 
             if gui['inventory']:
                 if self.gui['player']['inventory'] is None:
@@ -178,27 +152,13 @@ class Drawer:
                     self.gui['player']['inventory'].create(screen, screen.engine.database.item_database)
                 else:
                     self.gui['player']['inventory'].render()
-                    if screen.mouse[1][0]:
-                        self.is_mouse_clicked_inventory('inventory', screen.mouse[0], screen, 'left')
-                        screen.mouse = (None, (0,0,0))
-
-                    elif screen.mouse[1][2]:
-                        if self.is_mouse_clicked_inventory('inventory', screen.mouse[0], screen, 'right'):
-                            self.gui['item_details']['graphic_object'] = item_details.Details(screen, 'inventory',
-                                                                                              screen.mouse[0])
-                            self.gui['item_details']['graphic_object'].create()
-
-                        screen.mouse = (None, (0, 0, 0))
 
             if gui['item_details']:
+                self.gui['item_details']['graphic_object'].create()
                 self.gui['item_details']['graphic_object'].render()
-                #self.is_mouse_clicked_in_detail:
 
             if gui['item_information']:
                 self.gui['item_information']['graphic_object'].render()
-                if screen.mouse[1][0]:
-                    self.is_mouse_clicked_in_detail('item_information', screen.mouse[0])
-                    screen.mouse = (None, (0, 0, 0))
 
         else:
             if gui['menu']:
@@ -251,7 +211,7 @@ class Drawer:
 
     @staticmethod
     def render_buttons(obj):
-        for key in obj.buttons.keys():
+        for key in obj.buttons:
             obj.buttons[key].render_button()
 
     @staticmethod
@@ -261,7 +221,7 @@ class Drawer:
 
     @staticmethod
     def render_images(obj, screen):
-        for image in obj.images.keys():
+        for image in obj.images:
             screen.screen.blit(obj.images[image][0], obj.images[image][1])
 
     @staticmethod
@@ -303,93 +263,3 @@ class Drawer:
             if self.is_mouse_clicked_in_button(self.gui[screen_key].buttons[key], mouse_pos):
                 self.mouse_clicked_in_button(self.gui[screen_key].buttons[key])
                 break
-
-    def is_mouse_clicked_in_detail(self, screen_key, mouse_pos):
-        print('start function')
-        for key in self.gui[screen_key]['graphic_object'].buttons.keys():
-            if self.is_mouse_clicked_in_button(self.gui[screen_key]['graphic_object'].buttons[key], mouse_pos):
-                self.mouse_clicked_in_button(self.gui[screen_key]['graphic_object'].buttons[key])
-                print('mouse clicked in button')
-                break
-
-    def is_mouse_clicked_container(self, screen_key, mouse_pos, mouse_key, player, screen):
-        if mouse_key == 'left':
-            for button in self.gui[screen_key]['graphic_object'].buttons:
-                if self.is_mouse_clicked_in_button(button, mouse_pos):
-                    self.mouse_clicked_in_button(button)
-
-                    return False
-
-        for item in self.gui[screen_key]['graphic_object'].item_sprites:
-            if mouse_key == 'left':
-                if self.is_mouse_clicked_in_object_on_map(self.gui[screen_key]['graphic_object'].item_sprites[item], mouse_pos):
-                    self.gui[screen_key]['container'].give_away_item(player, self.gui[screen_key]['container'].content[item])
-
-                    return True
-            if mouse_key == 'right':
-                if self.is_mouse_clicked_in_object_on_map(self.gui[screen_key]['graphic_object'].item_sprites[item], mouse_pos):
-                    screen.game.gui['item_details'] = True
-                    self.gui['item_details']['item'] = self.gui[screen_key]['container'].content[item]
-
-                    return True
-
-    def is_mouse_clicked_inventory(self, screen_key, mouse_pos, screen, mouse_key):
-        if mouse_key == 'left':
-            for button in self.gui['player'][screen_key].buttons:
-                if self.is_mouse_clicked_in_button(button, mouse_pos):
-                    self.mouse_clicked_in_button(button)
-                    return False
-
-            for sprite in self.gui['player'][screen_key].sprites:
-                if self.is_mouse_clicked_in_object_on_map(self.gui['player'][screen_key].sprites[sprite], mouse_pos):
-                    if sprite == 'character':
-                        self.gui['player'][screen_key].open_character()
-                        return True
-                    elif sprite == 'statistics':
-                        self.gui['player'][screen_key].open_statistics()
-                        return True
-                    return False
-
-        for item in self.gui['player'][screen_key].item_sprites:
-            if mouse_key == 'left':
-                if self.is_mouse_clicked_in_object_on_map(self.gui['player'][screen_key].item_sprites[item], mouse_pos):
-                    item = self.gui['player'][screen_key].inventory.inventory[item]
-                    items_to_wear_types = ('Sword', 'BodyArmor', 'Boots', 'Helmet', 'Gloves', 'Leggings', 'Modulator')
-                    if item.item.type in items_to_wear_types:
-                        self.gui['player'][screen_key].inventory.dress_up_item(item)
-
-                    if item.item.type == 'Potion':
-                        self.gui['player'][screen_key].inventory.drink_potion(item.item)
-
-                    self.gui['player']['inventory'] = None
-                    self.gui['player']['inventory'] = inventory.Inventory(screen, screen.engine.return_player().equipment)
-                    self.gui['player']['inventory'].create(screen, screen.engine.database.item_database)
-                    self.gui['player']['inventory'].render()
-                    screen.engine.next_turn()
-                    return True
-
-            if mouse_key == 'right':
-                if self.is_mouse_clicked_in_object_on_map(
-                        self.gui['player'][screen_key].item_sprites[item], mouse_pos):
-                    screen.game.gui['item_details'] = True
-                    self.gui['item_details']['item'] = self.gui['player'][screen_key].inventory.inventory[item].item
-                    return True
-
-        for item in self.gui['player'][screen_key].dressed_item_sprites:
-            if mouse_key == 'left':
-                if self.is_mouse_clicked_in_object_on_map(self.gui['player'][screen_key].dressed_item_sprites[item], mouse_pos):
-                    self.gui['player'][screen_key].inventory.dress_off_item(self.gui['player'][screen_key].inventory.dressed_armor[item], item)
-                    self.gui['player']['inventory'] = None
-                    self.gui['player']['inventory'] = inventory.Inventory(screen,
-                                                                          screen.engine.return_player().equipment)
-                    self.gui['player']['inventory'].create(screen, screen.engine.database.item_database)
-                    self.gui['player']['inventory'].render()
-                    screen.engine.next_turn()
-                    return True
-
-            if mouse_key == 'right':
-                if mouse_key == 'right':
-                    if self.is_mouse_clicked_in_object_on_map(self.gui['player'][screen_key].dressed_item_sprites[item], mouse_pos):
-                        screen.game.gui['item_details'] = True
-                        self.gui['item_details']['item'] = self.gui['player'][screen_key].inventory.dressed_armor[item]
-                        return True

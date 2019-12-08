@@ -13,6 +13,14 @@ class Button:
         self.settings = settings
         self.kwargs = kwargs
 
+    def is_clicked(self, mouse):
+        area = (self.start[0], self.start[1],
+            self.start[0] + self.size[0], self.start[1] + self.size[1])
+        if mouse[0][0] >= area[0] and mouse[0][1] >= area[1] \
+         and mouse[0][0] <= area[2] and mouse[0][1] <= area[3]:
+            return True
+        return False
+
     def render_button(self):
         self.is_size_agree_for_font()
         self.render_rect()

@@ -21,7 +21,7 @@ class GameDrawer:
             'object_detail': False,
             'item_information': False,
         }
-        self.mouse = (None, (0, 0, 0) )
+        self.mouse = ( (), () )             # (mouse_pos_x, mouse_pos_y), (left_click, middle_click_, right_click)
         self.screen = screen
         self.game_engine = game_engine
         self.player_team_persons_id = [1]
@@ -107,13 +107,16 @@ class GameDrawer:
         self.get_event()
         self.check_objects_and_persons_positions()
         self.draw()
+        self.where_is_mouse()
         self.drawer.camera.update_camera()
 
     def init(self):
         self.player_settings.load_player_saves_settings(self.game_engine.path, 'save_1')
 
     def check_objects_and_persons_positions(self):
-        size = (75 * self.game_engine.settings.graphic['screen']['resolution_scale'][0], 75 * self.game_engine.settings.graphic['screen']['resolution_scale'][1])
+        size = (75 * self.game_engine.settings.graphic['screen']['resolution_scale'][0],
+                75 * self.game_engine.settings.graphic['screen']['resolution_scale'][1])
+
         for idx in self.game_engine.map.persons:
             person = self.game_engine.database.person_database.select_person_by_id(idx)
             person_sprite = self.game_engine.loaded_game_resources.get_person_sprite_by_person_id(idx)
@@ -121,3 +124,81 @@ class GameDrawer:
             y = round(person_sprite.big_position[1] / size[1])
             person.uptade_coordinate([x, y])
             person_sprite.small_position = (x, y)
+
+    def where_is_mouse(self):
+        gui_keys = ('health', 'location', 'coordinate', 'skills', 'minimap', 'experience')
+        clicked_at_gui              = False
+        clicked_at_item_information = False
+        clicked_at_item_details     = False
+        clicked_at_inventory        = False
+        clicked_at_container        = False
+        clicked_at_person           = False
+        clicked_at_object           = False
+
+        if self.mouse is not None:
+
+            # checking if player clicked at gui
+            for key in gui_keys:
+                if self.drawer.gui['player']['hub'][key]:
+                    if self.drawer.gui['player']['hub'][key].is_clicked(self.mouse):
+                        if self.mouse[1][0] or self.mouse[1][1] or self.mouse[1][2]:
+                            self.drawer.gui['player']['hub'][key].clicked(self.mouse)
+                            self.mouse = None
+                            clicked_at_gui = True
+                            break
+
+            if self.gui['item_information']:
+                if self.drawer.gui['item_information']['graphic_object'].clicked(self.mouse):
+                    clicked_at_item_information = True
+
+
+            # checking if player clicked at item details
+            if self.gui['item_details']:
+                if self.mouse[1][0]:
+                    if self.screen.game.drawer.gui['item_details']['graphic_object'].clicked(self.mouse):
+                        clicked_at_item_details = True
+
+                    if not clicked_at_item_details:
+                        if self.drawer.gui['item_details']['graphic_object'].is_clicked_without_details(self.mouse[0]):
+                            self.gui['item_details'] = False
+                            clicked_at_item_details = True
+
+            # checking if player clicked at inventory
+            if not clicked_at_gui and not clicked_at_item_details:
+                if self.drawer.gui['player']['inventory']:
+                    if self.drawer.gui['player']['inventory'].is_clicked(self.mouse):
+                        if self.mouse[1][0] or self.mouse[1][1] or self.mouse[1][2]:
+                            self.drawer.gui['player']['inventory'].clicked(self.mouse)
+                            self.mouse = None
+                            clicked_at_inventory = True
+
+            # checking if player clicked at object on map
+            if not clicked_at_container and not clicked_at_inventory and not clicked_at_gui and not clicked_at_item_details:
+
+                """
+
+                    Wymyślić spobób na wykrywanie kliknięcia na obiektach
+                    na mapie, z którymi gracz może wejść w interakcje, oraz
+                    sposób wyświetlania tych akcji na ekranie
+
+                """
+
+
+                # first checking if clicked at person
+                for person in self.game_engine.loaded_game_resources.person_sprite_menager.sprites():
+                    if self.drawer.is_mouse_clicked_in_object_on_map(person, self.mouse[0]):
+                        if self.mouse[1][0] or self.mouse[1][1] or self.mouse[1][2]:
+                            print(person.person_id)
+                            self.mouse = None
+                            clicked_at_person = True
+                            break
+
+                # second checking if clicked at object
+                if not clicked_at_person:
+                    for object in self.game_engine.loaded_game_resources.objects_sprite_menager.sprites():
+                        if self.drawer.is_mouse_clicked_in_object_on_map(object, self.mouse[0]):
+                            if self.mouse[1][0] or self.mouse[1][1] or self.mouse[1][2]:
+                                print('clicked')
+                                self.mouse = None
+                                clicked_at_object = True
+                                break

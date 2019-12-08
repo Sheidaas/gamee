@@ -162,3 +162,43 @@ class Containter:
                 screen.game.drawer.gui['player']['inventory'] = inventory.Inventory(screen, screen.engine.return_player().equipment)
                 screen.game.drawer.gui['player']['inventory'].create(screen, screen.engine.database.item_database)
                 screen.game.drawer.gui['player']['inventory'].render()
+
+    def clicked(self, mouse):
+        player = self.screen.game_engine.return_player()
+
+        print(self.buttons)
+        for button in self.buttons:
+            print('checked')
+            if button.is_clicked(mouse):
+                button.on_click()
+                return True
+
+        for item in item_sprites:
+            if self.is_item_sprite_clicked(item_sprites[item]['position'], mouse):
+                if mouse[1][0]:
+                    self.give_away_item(player, self.content[item])
+                    self.screen.game.drawer.gui['container']['graphic_object'] = None
+                    self.screen.game.drawer.gui['container']['graphic_object'] = \
+                        Containter(self.screen.game.drawer.gui['container']['container'], self.screen)
+                    self.screen.game.drawer.gui['container']['graphic_object'].create(self.screen, self.screen.engine.database.item_database)
+
+                    return True
+                if mouse[1][1]:
+                    self.screen.game.drawer.gui['item_details'] = True
+                    self.screen.game.drawer.gui['item_details']['item'] = self.screen.game.drawer.gui['container']['container'].content[item]
+                    self.screen.game.drawer.gui['container']['graphic_object'] = None
+                    self.screen.game.drawer.gui['container']['graphic_object'] = \
+                        Containter(self.screen.game.drawer.gui['container']['container'], self.screen)
+                    self.screen.game.drawer.gui['container']['graphic_object'].create(self.screen, self.screen.engine.database.item_database)
+
+                    return True
+
+
+    def is_item_sprite_clicked(self, item_position, mouse):
+        area = (item_position[0], item_position[1],
+                item_position[0] + 75,
+                item_position[1] + 75)
+        if mouse[0][0] >= area[0] and mouse[0][0] <= area[2] \
+            and mouse[0][1] >= area[1] and mouse[0][1] <= area[3]:
+            return True
+        return False

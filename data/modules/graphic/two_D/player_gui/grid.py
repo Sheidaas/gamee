@@ -4,6 +4,7 @@ import pygame
 class Grid:
 
     def __init__(self):
+        self.position = (75, 75, 400, 40)
         self.x = []
         self.y = []
 

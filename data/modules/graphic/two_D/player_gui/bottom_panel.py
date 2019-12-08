@@ -1,7 +1,8 @@
 import pygame
+from .gui_abstract_object import GuiAbstractObject
 
 
-class BottomPanel:
+class BottomPanel(GuiAbstractObject):
 
     def __init__(self, x, y, player, screen):
         self.player = player
@@ -21,3 +22,5 @@ class BottomPanel:
 
     def render(self):
         pygame.draw.rect(self.screen.screen, self.rects_pos['main'][1], self.rects_pos['main'][0])
+
+    

@@ -1,6 +1,7 @@
 from data.modules.primary.persons import Person
 from collections import OrderedDict
 import json
+import copy
 
 
 class Database:
@@ -63,8 +64,8 @@ class Database:
 
             for item in persons_data[person]['equipment']['dressed_armor']:
                 if persons_data[person]['equipment']['dressed_armor'][item] is not None:
-                    p.equipment.dressed_armor[item] = \
-                        item_database.return_item_by_id(persons_data[person]['equipment']['dressed_armor'][item])
+                    p.equipment.dressed_armor[item] = copy.deepcopy(item_database.return_item_by_id(persons_data[person]['equipment']['dressed_armor'][item]))
+                    p.equipment.dressed_armor[item].founded = True
 
             for item in persons_data[person]['equipment']['inventory']:
                 p.equipment.add_item_to_inventory(item_database.return_item_by_id(item))

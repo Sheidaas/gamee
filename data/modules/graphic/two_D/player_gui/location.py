@@ -1,7 +1,8 @@
 import pygame
+from .gui_abstract_object import GuiAbstractObject
 
 
-class Location:
+class Location(GuiAbstractObject):
 
     def __init__(self, x, y, player, screen):
         self.player = player

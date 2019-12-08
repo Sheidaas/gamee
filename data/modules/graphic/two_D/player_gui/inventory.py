@@ -1,8 +1,10 @@
 import pygame
 from data.modules.graphic.two_D import button
+from .gui_abstract_object import GuiAbstractObject
+from .item_details import Details
 
 
-class Inventory:
+class Inventory(GuiAbstractObject):
 
     def __init__(self, screen, inventory):
         self.screen = screen
@@ -12,7 +14,7 @@ class Inventory:
         self.item_sprites = {}
         self.dressed_item_sprites = {}
         self.texts = {}
-        self.position = [460, 50]
+        self.position = (460, 50, 1000, 760)
         self.item_pages = {
             'current_page': 1,
             'all_pages': 1,
@@ -368,3 +370,91 @@ class Inventory:
         screen.game.drawer.gui['inventory'] = None
         screen.game.drawer.gui['character'] = None
         screen.game.drawer.gui['statistics'] = None
+
+    def clicked(self, mouse):
+
+        if mouse[1][0]:
+            for button in self.screen.game.drawer.gui['player']['inventory'].buttons:
+                if self.screen.game.drawer.is_mouse_clicked_in_button(button, mouse[0]):
+                    button.on_click()
+                    return True
+
+            for sprite in self.screen.game.drawer.gui['player']['inventory'].sprites:
+                if self.screen.game.drawer.is_mouse_clicked_in_object_on_map(self.screen.game.drawer.gui['player']['inventory'].sprites[sprite], mouse[0]):
+                    if sprite == 'character':
+                        self.screen.game.drawer.gui['player'][screen_key].open_character()
+                        return True
+                    elif sprite == 'statistics':
+                        self.screen.game.drawer.gui['player'][screen_key].open_statistics()
+                        return True
+                    return False
+
+            if self.is_clicked_on_item_sprites(mouse):
+                return True
+
+            if self.is_clicked_on_dressed_item_sprites(mouse):
+                return True
+
+            if self.screen.game.gui['item_details']:
+                if self.screen.game.drawer.gui['item_details']['graphic_object'].clicked(mouse):
+                    return True
+                if self.screen.game.drawer.gui['item_details']['graphic_object'].is_clicked_without_details(mouse[0]):
+                    self.screen.game.gui['item_details'] = False
+                    return True
+
+        if mouse[1][2]:
+            for item in self.screen.game.drawer.gui['player']['inventory'].item_sprites:
+                if self.screen.game.drawer.is_mouse_clicked_in_object_on_map(
+                    self.screen.game.drawer.gui['player']['inventory'].item_sprites[item], mouse[0]):
+                    self.screen.game.gui['item_details'] = True
+                    self.screen.game.drawer.gui['item_details']['graphic_object'] = Details(self.screen, 'inventory', mouse)
+                    self.screen.game.drawer.gui['item_details']['item'] = self.screen.game.drawer.gui['player']['inventory'].inventory.inventory[item].item
+                    return True
+
+            for item in self.screen.game.drawer.gui['player']['inventory'].dressed_item_sprites:
+                if self.screen.game.drawer.is_mouse_clicked_in_object_on_map(self.screen.game.drawer.gui['player']['inventory'].dressed_item_sprites[item], mouse[0]):
+                    self.screen.game.gui['item_details'] = True
+                    self.screen.game.drawer.gui['item_details']['graphic_object'] = Details(self.screen, 'inventory', mouse)
+                    self.screen.game.drawer.gui['item_details']['item'] = self.screen.game.drawer.gui['player']['inventory'].inventory.dressed_armor[item]
+                    return True
+
+    def is_clicked_on_item_sprites(self, mouse):
+        for item in self.screen.game.drawer.gui['player']['inventory'].item_sprites:
+            if self.screen.game.drawer.is_mouse_clicked_in_object_on_map(self.screen.game.drawer.gui['player']['inventory'].item_sprites[item], mouse[0]):
+                item = self.screen.game.drawer.gui['player']['inventory'].inventory.inventory[item]
+                items_to_wear_types = ('Sword', 'BodyArmor', 'Boots', 'Helmet', 'Gloves', 'Leggings', 'Modulator')
+
+                if item.item.type in items_to_wear_types:
+                    self.screen.game.drawer.gui['player']['inventory'].inventory.dress_up_item(item)
+
+                if item.item.type == 'Potion':
+                    self.screen.game.drawer.gui['player']['inventory'].inventory.drink_potion(item.item)
+
+                self.screen.game.drawer.gui['player']['inventory'] = None
+                self.screen.game.drawer.gui['player']['inventory'] = Inventory(self.screen, self.screen.engine.return_player().equipment)
+                self.screen.game.drawer.gui['player']['inventory'].create(self.screen, self.screen.engine.database.item_database)
+                self.screen.game.drawer.gui['player']['inventory'].render()
+                self.screen.engine.next_turn()
+                return True
+        return False
+
+    def is_clicked_on_dressed_item_sprites(self, mouse):
+        for item in self.screen.game.drawer.gui['player']['inventory'].dressed_item_sprites:
+            if self.screen.game.drawer.is_mouse_clicked_in_object_on_map(self.screen.game.drawer.gui['player']['inventory'].dressed_item_sprites[item], mouse[0]):
+                self.screen.game.drawer.gui['player']['inventory'].inventory.dress_off_item(self.screen.game.drawer.gui['player']['inventory'].inventory.dressed_armor[item], item)
+                self.screen.game.drawer.gui['player']['inventory'] = None
+                self.screen.game.drawer.gui['player']['inventory'] = Inventory(self.screen,
+                                                                      self.screen.engine.return_player().equipment)
+                self.screen.game.drawer.gui['player']['inventory'].create(self.screen, self.screen.engine.database.item_database)
+                self.screen.engine.next_turn()
+                return True
+        return False
+
+    def wear_up(self, mouse):
+        if self.is_clicked_on_item_sprites(mouse):
+            return True
+
+        if self.is_clicked_on_dressed_item_sprites(mouse):
+            return True
+
+        return False

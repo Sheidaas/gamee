@@ -1,21 +1,22 @@
 from data.modules.graphic.two_D.button import Button
 from data.modules.graphic.two_D.player_gui.container import Containter
-from data.modules.graphic.two_D.player_gui.inventory import Inventory
 from data.modules.graphic.two_D.player_gui.item_information import ItemInformation
 from data.modules.primary import items
+from .gui_abstract_object import GuiAbstractObject
 
 
-class Details:
+class Details(GuiAbstractObject):
 
     def __init__(self, screen, where_is_item, mouse_position):
         self.screen = screen
         self.where_is_item = where_is_item
         self.buttons = {}
+        self.position = (mouse_position[0][0], mouse_position[0][1], 200, 100)
         self.mouse_position = mouse_position
 
     def create(self):
         if self.where_is_item == 'container':
-            self.buttons['take'] = (Button(self.mouse_position[0], self.mouse_position[1], 200, 50,
+            self.buttons['take'] = (Button(self.mouse_position[0][0], self.mouse_position[0][1], 200, 50,
                                            self.screen.engine.database.language.texts['gui']['item_details']['take'],
                                            self.screen.font, self.take_item,
                                            self.screen.screen, self.screen.engine.settings.graphic['screen']))
@@ -27,21 +28,18 @@ class Details:
 
             if not isinstance(self.screen.game.drawer.gui['item_details']['item'], items.Potion):
                 if not self.screen.game.drawer.gui['item_details']['item'].founded:
-                    self.buttons['wear_up'] = (Button(self.mouse_position[0], self.mouse_position[1], 200, 50,
-                                                   self.screen.engine.database.language.texts['gui']['item_details'][
-                                                       'wear_up'],
-                                                   self.screen.font, self.click_on_inventory_at_item,
-                                                   self.screen.screen, self.screen.engine.settings.graphic['screen']))
-
-                    self.add_information_button(100)
+                    self.buttons['wear_up'] = (Button(self.mouse_position[0][0],
+                     self.mouse_position[0][1], 200, 50,
+                      self.screen.engine.database.language.texts['gui']['item_details']['wear_up'],
+                       self.screen.font, self.wear_up, self.screen.screen, self.screen.engine.settings.graphic['screen']))
                 else:
-                    self.buttons['wear_off'] = (Button(self.mouse_position[0], self.mouse_position[1], 200, 50,
+                    self.buttons['wear_off'] = (Button(self.mouse_position[0][0], self.mouse_position[0][1], 200, 50,
                                                    self.screen.engine.database.language.texts['gui']['item_details'][
                                                        'wear_off'],
-                                                   self.screen.font, self.click_on_inventory_at_item,
+                                                   self.screen.font, self.wear_up,
                                                    self.screen.screen, self.screen.engine.settings.graphic['screen']))
 
-                    self.add_information_button(100)
+                self.add_information_button(100)
 
 
 
@@ -56,13 +54,14 @@ class Details:
 
 
             if self.screen.game.drawer.gui['container']['container'] != None:
-                self.buttons['put_down'] = (Button(self.mouse_position[0], self.mouse_position[1] + 50, 200, 50,
+                self.buttons['put_down'] = (Button(self.mouse_position[0][0], self.mouse_position[0][1], 200, 50,
                                                    self.screen.engine.database.language.texts['gui']['item_details'][
                                                        'put_down'],
                                                    self.screen.font, self.put_down_item,
                                                    self.screen.screen, self.screen.engine.settings.graphic['screen']))
+
             elif self.screen.game.drawer.gui['container']['container'] == None:
-                self.buttons['drop'] = (Button(self.mouse_position[0], self.mouse_position[1] + 50, 200, 50,
+                self.buttons['drop'] = (Button(self.mouse_position[0][0], self.mouse_position[0][1] + 50, 200, 50,
                                                self.screen.engine.database.language.texts['gui']['item_details'][
                                                    'drop'],
                                                self.screen.font, None,
@@ -73,21 +72,29 @@ class Details:
             self.buttons[button].render_button()
 
     def add_information_button(self, y):
-        self.buttons['information'] = (Button(self.mouse_position[0], self.mouse_position[1] + y, 200, 50,
+        self.buttons['information'] = (Button(self.mouse_position[0][0], self.mouse_position[0][1] + y, 200, 50,
                                        self.screen.engine.database.language.texts['gui']['item_details']['information'],
                                        self.screen.font, self.show_item_details,
                                        self.screen.screen, self.screen.engine.settings.graphic['screen']))
 
     def is_clicked_without_details(self, mouse_position):
-        area = (self.mouse_position[0], self.mouse_position[1],
-                self.mouse_position[0] + 200, self.mouse_position[1] + len(self.buttons) * 50)
+        area = (self.position[0], self.position[1],
+                self.position[0] + self.position[2],
+                self.position[1] + self.position[3])
         if mouse_position[0] >= area[0] and mouse_position[0] <= area[2] \
             and mouse_position[1] >= area[1] and mouse_position[1] <= area[3]:
-            return True
+            return False
+        return True
+
+    def clicked(self, mouse):
+        for button in self.buttons:
+            if self.buttons[button].is_clicked(mouse):
+                self.buttons[button].on_click()
+                return True
         return False
 
-    def click_on_inventory_at_item(self):
-        self.screen.game.drawer.is_mouse_clicked_inventory('inventory', self.mouse_position, self.screen, 'left')
+    def wear_up(self):
+        self.screen.game.drawer.gui['player']['inventory'].wear_up(self.mouse_position)
 
         self.screen.engine.next_turn()
 

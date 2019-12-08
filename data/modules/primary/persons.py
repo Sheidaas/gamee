@@ -25,6 +25,13 @@ class Person:
         self.equipment  =  Equipment(self.statistics)
 
         # DONT SAVE THAT VARIABLES IN GAME_STATES
+        self.visible_game_objects = {
+            'visible_squares': [], # square coordinate
+            'visible_persons': [], # person id
+            'visible_objects': []  # objects id
+
+        }
+
         self.visible_squares = []
 
     def __str__(self):
@@ -39,7 +46,6 @@ class Person:
                        visible squares
 
         """
-        calc = Calculator()
         self.visible_squares = Calculator().return_visible_positions(self, map_size)
 
     def set_race(self, race):

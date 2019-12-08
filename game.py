@@ -3,7 +3,6 @@ from data.modules.primary import database
 from data.modules.game_loaded_resources_manager import LoadedResourcesMenager
 from data.modules import game_state
 from data.modules.primary.persons_move import Move
-
 import os
 
 
@@ -20,6 +19,7 @@ class GameEngine:
         self.database.init_databases()
 
     def init_state(self, state_name):
+
         game_state.GameStateLoader().load_state(state_name, self)
 
     def save_state(self, state_name):

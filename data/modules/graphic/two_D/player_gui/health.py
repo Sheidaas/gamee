@@ -1,9 +1,11 @@
 import pygame
+from .gui_abstract_object import GuiAbstractObject
 
 
-class Health:
+class Health(GuiAbstractObject):
 
     def __init__(self, x, y, player, screen):
+        super().__init__()
         self.player = player
         self.position = (x, y, 400, 40)
         self.rects_pos = {

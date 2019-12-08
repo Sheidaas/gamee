@@ -76,80 +76,18 @@
           "can_walk": false
       },
       "2": {
-          "sprite": "data/graphic/resources/objects/trees/tree-1.png",
+          "can_walk": false,
+          "content": [],
           "coordinate": {
-              "x": 10,
-              "y": 5
+              "x": 0,
+              "y": 0
           },
-          "name": "tree",
-          "can_walk": false
-      },
-      "3": {
-          "sprite": "data/graphic/resources/objects/trees/tree-2.png",
-          "coordinate": {
-              "x": 6,
-              "y": 33
-          },
-          "name": "tree",
-          "can_walk": false
-      },"4": {
-          "sprite": "data/graphic/resources/objects/trees/tree-2.png",
-          "coordinate": {
-              "x": 3,
-              "y": 16
-          },
-          "name": "tree",
-          "can_walk": false
-      },"5": {
+          "name": "chest",
+          "path_to_sprite": "data/graphic/resources/objects/chests/1.png",
           "sprite": "data/graphic/resources/objects/chests/1.png",
-          "coordinate": {
-              "x": 11,
-              "y": 8
-          },
-          "name": "tree",
-          "can_walk": false
-      },"6": {
-          "sprite": "data/graphic/resources/objects/chests/1.png",
-          "coordinate": {
-              "x": 22,
-              "y": 15
-          },
-          "name": "tree",
-          "can_walk": false
-      },"7": {
-          "sprite": "data/graphic/resources/objects/chests/1.png",
-          "coordinate": {
-              "x": 13,
-              "y": 23
-          },
-          "name": "tree",
-          "can_walk": false
-      },"8": {
-          "sprite": "data/graphic/resources/objects/chests/1.png",
-          "coordinate": {
-              "x": 31,
-              "y": 27
-          },
-          "name": "tree",
-          "can_walk": false
-      },"9": {
-          "sprite": "data/graphic/resources/objects/chests/1.png",
-          "coordinate": {
-              "x": 16,
-              "y": 33
-          },
-          "name": "tree",
-          "can_walk": false
-      },
-      "10": {
-          "sprite": "data/graphic/resources/objects/chests/1.png",
-          "coordinate": {
-              "x": 8,
-              "y": 25
-          },
-          "name": "tree",
-          "can_walk": false
-    }
-},
+          "type": "container"
+      }
+
+    },
   "persons": [1, 2]
 }

@@ -1,9 +1,10 @@
 from data.modules.graphic.two_D.button import Button
 from data.modules.primary import items
+from .gui_abstract_object import GuiAbstractObject
 import pygame
 
 
-class ItemInformation:
+class ItemInformation(GuiAbstractObject):
 
     def __init__(self, screen, where_is_item, possibility):
         self.buttons = {}
@@ -17,7 +18,7 @@ class ItemInformation:
     def set_position(self):
         x = 560
         y = 50
-        self.position = (x, y)
+        self.position = (x, y, 765, 500)
 
     def create(self):
         self.set_position()
@@ -339,7 +340,9 @@ class ItemInformation:
         self.sprites['body'] = {}
         self.sprites['body']['sprite'] = pygame.image.load(
             self.screen.engine.path + '/data/graphic/gui/information/body.png')
-        self.sprites['body']['position'] = (self.position[0], self.position[1]+40)
+
+        image_size = self.sprites['body']['sprite'].get_size()
+        self.sprites['body']['position'] = (self.position[0], self.position[1]+40, image_size[0], image_size[1])
 
     def exit_button(self):
         if self.where_is_item == 'inventory':
@@ -363,3 +366,11 @@ class ItemInformation:
         self.screen.game.gui['item_information'] = False
         self.screen.game.drawer.gui['item_information']['item'] = None
         self.screen.game.drawer.gui['item_information']['graphic_object'] = None
+
+    def clicked(self, mouse):
+        if mouse[1][0]:
+            for button in self.buttons:
+                if self.buttons[button].is_clicked(mouse):
+                    self.buttons[button].on_click()
+                    return True
+        return False

@@ -22,6 +22,12 @@ class Map:
 
         self.resources_in_dict = {}
 
+    def return_object_by_small_position(self, small_position):
+        print(self.objects)
+        print(small_position)
+        for object in self.objects:
+            return True
+
 class MapLoader:
 
     def __init__(self, real_path: str, file_path: str):
@@ -73,6 +79,7 @@ class MapLoader:
 
                 map.objects[key].pop('content', None)
                 map.objects[key].pop('coordinate', None)
+
             if map.objects[key]['name'] == 'tree':
                 map.objects[key]['object'] = objects.ObjectOnMap()
                 map.objects[key]['object'].coordinate = [map.objects[key]['coordinate']['x'],
