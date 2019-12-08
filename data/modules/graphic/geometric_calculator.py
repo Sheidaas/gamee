@@ -4,7 +4,6 @@ import math
 class Calculator:
 
     def return_visible_positions(self, player, size):
-        potentially_square = []
         player_position = player.coordinate
 
         min_x = player_position[0] - player.statistics.sight - 1
@@ -20,7 +19,6 @@ class Calculator:
 
         if max_y > size['y']:
             max_y = size['y']
-
 
         if max_x > size['x']:
             max_x = size['x']
@@ -45,13 +43,13 @@ class Calculator:
         for x in range(len(visible_square)):
             if visible_square[x][0] == obj_coordinate[0] and visible_square[x][1] == obj_coordinate[1]:
                 return image_coordinate[x]
-        return None
+        return False
 
     @staticmethod
-    def is_object_in_area(obj_coordinate, player_coordinate):
+    def is_object_in_area(obj_coordinate, player_coordinate, range):
         distance = math.sqrt(math.pow(obj_coordinate[0] - player_coordinate[0], 2)
                              + math.pow(obj_coordinate[1] - player_coordinate[1], 2))
-        if distance < 1.5:
+        if distance < range:
             return True
         return False
 

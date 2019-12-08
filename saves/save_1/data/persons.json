@@ -1,5 +1,6 @@
 {
     "1": {
+        "AI": false,
         "name": "Maciej",
         "last_name": "Wrzeszcz",
         "age": "19",
@@ -54,6 +55,7 @@
         ]
     },
     "2": {
+        "AI": true,
         "name": "Zuzanna",
         "last_name": "Wrzeszcz",
         "age": "19",
@@ -106,5 +108,115 @@
         "abilities": [
             0
         ]
-    }
+    },
+    "3": {
+    "AI": true,
+    "name": "Zuzanna",
+    "last_name": "Wrzeszcz",
+    "age": "19",
+    "gender": "2",
+    "portrait": "",
+    "race": 1,
+    "map_sprite": "1.png",
+    "location": "forrest",
+    "statistics": {
+        "health_points": 873,
+        "max_health_points": 1500,
+        "experience": 500,
+        "experience_to_next_level": 1000,
+        "level": 0,
+        "strength": 0,
+        "agility": 0,
+        "observation": 0,
+        "luck": 0,
+        "sight": 8,
+        "chance_to_deflection": 0.0,
+        "chance_to_block": 0.0,
+        "chance_to_dodge": 0.0,
+        "chance_to_critical_hit": 0.0,
+        "critical_hit_power": 1.5,
+        "modifiers": []
+    },
+    "equipment": {
+        "dressed_armor": {
+            "left-hand": 1,
+            "right-hand": 1,
+            "head": null,
+            "modulator": null,
+            "body": null,
+            "hands": null,
+            "legs": null,
+            "foots": null
+        },
+        "inventory": [
+            1,
+            1,
+            1,
+            1
+        ],
+        "equipment_weight": 1.6
+    },
+    "coordinate": [
+        7,
+        1
+    ],
+    "abilities": [
+        0
+    ]
+},
+    "4": {
+    "AI": true,
+    "name": "Zuzanna",
+    "last_name": "Wrzeszcz",
+    "age": "19",
+    "gender": "2",
+    "portrait": "",
+    "race": 1,
+    "map_sprite": "1.png",
+    "location": "forrest",
+    "statistics": {
+        "health_points": 873,
+        "max_health_points": 1500,
+        "experience": 500,
+        "experience_to_next_level": 1000,
+        "level": 0,
+        "strength": 0,
+        "agility": 0,
+        "observation": 0,
+        "luck": 0,
+        "sight": 8,
+        "chance_to_deflection": 0.0,
+        "chance_to_block": 0.0,
+        "chance_to_dodge": 0.0,
+        "chance_to_critical_hit": 0.0,
+        "critical_hit_power": 1.5,
+        "modifiers": []
+    },
+    "equipment": {
+        "dressed_armor": {
+            "left-hand": 1,
+            "right-hand": 1,
+            "head": null,
+            "modulator": null,
+            "body": null,
+            "hands": null,
+            "legs": null,
+            "foots": null
+        },
+        "inventory": [
+            1,
+            1,
+            1,
+            1
+        ],
+        "equipment_weight": 1.6
+    },
+    "coordinate": [
+        2,
+        1
+    ],
+    "abilities": [
+        0
+    ]
+}
 }

@@ -1,5 +1,6 @@
 from data.modules.primary.persons import Person
 from collections import OrderedDict
+from .artificial_intelligence import PersonArtificialIntelligence
 import json
 import copy
 
@@ -72,6 +73,11 @@ class Database:
 
             for ability in persons_data[person]['abilities']:
                 p.abilities.add_ability(abilities_database.return_ability_by_id(ability))
+
+            if persons_data[person]['AI']:
+                p.ai = PersonArtificialIntelligence(p)
+            else:
+                p.ai = False
 
             self.add_person(p)
 

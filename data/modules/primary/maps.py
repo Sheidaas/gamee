@@ -67,15 +67,14 @@ class MapLoader:
             loadedresourcesmenager.load_terrain(map.resources[key], key, map)
 
     def load_objects(self, map, item_db, loadedresourcesmenager):
-        for key in map.objects.keys():
+        for key in map.objects:
             if map.objects[key]['name'] == 'chest':
                 map.objects[key]['object'] = objects.Chest()
                 map.objects[key]['object'].coordinate = [map.objects[key]['coordinate']['x'],
                                                          map.objects[key]['coordinate']['y']]
                 map.objects[key]['object'].name = 'chest'
                 for index in map.objects[key]['content']:
-                    map.objects[key]['object'].content.append(
-                        item_db.return_item_by_id(map.objects[key]['content'][index]))
+                    map.objects[key]['object'].content.append(item_db.return_item_by_id(index))
 
                 map.objects[key].pop('content', None)
                 map.objects[key].pop('coordinate', None)
@@ -85,7 +84,7 @@ class MapLoader:
                 map.objects[key]['object'].coordinate = [map.objects[key]['coordinate']['x'],
                                                          map.objects[key]['coordinate']['y']]
 
-            loadedresourcesmenager.load_object(map.objects[key]['object'], ContainerSprite(pygame.image.load(self.path + '/' + map.objects[key]['sprite'])))
+            loadedresourcesmenager.load_object(map.objects[key]['object'], ContainerSprite(pygame.image.load(self.path + '/' + map.objects[key]['sprite']), int(key)))
 
 
     def load_map_from_file(self):

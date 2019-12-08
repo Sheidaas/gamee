@@ -58,10 +58,9 @@ class Screen:
                 self.game.run()
 
 
-
 if __name__ == '__main__':
     while True:
         screen = Screen()
         screen.init()
-        screen.engine.init_state('/save_1')
+        screen.engine.init_state('/save_1', screen)
         screen.run()

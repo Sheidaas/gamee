@@ -81,7 +81,6 @@ class LoadedResourcesMenager:
                 object.big_position[1],
                 object.big_position[0] + 75,
                 object.big_position[1] + 75)
-        print(area, mouse)
         if mouse[0] >= area[0] and mouse[0] <= area[2] and mouse[1] >= area[1] and mouse[1] <= area[3]:
             return object.small_position
         return False

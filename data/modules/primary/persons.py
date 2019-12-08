@@ -21,14 +21,16 @@ class Person:
         self.coordinate = [0, 0]  # x, y
 
         self.statistics = Statistics()
-        self.abilities  =  Abilities(self.statistics)
-        self.equipment  =  Equipment(self.statistics)
+        self.abilities = Abilities(self.statistics)
+        self.equipment = Equipment(self.statistics)
+
+        self.ai = False
 
         # DONT SAVE THAT VARIABLES IN GAME_STATES
         self.visible_game_objects = {
-            'visible_squares': [], # square coordinate
-            'visible_persons': [], # person id
-            'visible_objects': []  # objects id
+            'visible_squares': [],  # square coordinate
+            'visible_persons': [],  # person id
+            'visible_objects': []   # objects id
 
         }
 

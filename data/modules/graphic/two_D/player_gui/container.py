@@ -1,10 +1,12 @@
 import pygame
 from data.modules.graphic.two_D import button
+from .gui_abstract_object import GuiAbstractObject
 
 
-class Containter:
+class Containter(GuiAbstractObject):
 
     def __init__(self, container, screen):
+        self.position = screen.game.drawer.gui['container']['last_position']
         self.screen = screen
         self.container = container
         self.buttons = []
@@ -24,6 +26,11 @@ class Containter:
         }
 
     def create(self, screen, item_db):
+        self.position = [screen.game.drawer.gui['container']['last_position'][0] * self.screen.engine.settings.graphic['screen']['resolution_scale'][0],
+                         screen.game.drawer.gui['container']['last_position'][1] * self.screen.engine.settings.graphic['screen']['resolution_scale'][1],
+                         (screen.game.drawer.gui['container']['last_position'][0] + 310) * self.screen.engine.settings.graphic['screen']['resolution_scale'][0],
+                         (screen.game.drawer.gui['container']['last_position'][1] + 390) * self.screen.engine.settings.graphic['screen']['resolution_scale'][1]]
+
         # Create label
         self.sprites['label']['sprite'] = pygame.image.load(screen.engine.path + '/data/graphic/gui/container/first.png')
         self.sprites['label']['size'] = (310, 40)
@@ -33,6 +40,7 @@ class Containter:
         self.sprites['body']['sprite'] = pygame.image.load(screen.engine.path + '/data/graphic/gui/container/second.png')
         self.sprites['body']['size'] = (310, 310)
 
+        # Loading free square sprite
         self.sprites['free_square'] = {}
         self.sprites['free_square']['sprite'] = pygame.image.load(screen.engine.path + '/data/graphic/resources/free_item_square.png')
         self.sprites['free_square']['size'] = (75, 75)
@@ -44,6 +52,7 @@ class Containter:
                                           30, 30, 'x',screen.font, self.close_container,
                                           screen.screen, screen.engine.settings.graphic['screen'], screen))
 
+        # Create take all button
         self.buttons.append(button.Button(screen.game.drawer.gui['container']['last_position'][0],
                                           screen.game.drawer.gui['container']['last_position'][1] + 350,
                                           310, 30, self.screen.engine.database.language.texts['gui']['container']['take_all'],
@@ -106,9 +115,9 @@ class Containter:
             self.screen.screen.blit(self.sprites['free_square']['sprite'], position)
             item_position = [position[0] + (5 * self.screen.engine.settings.graphic['screen']['resolution_scale'][0]),
                              position[1] + (5 * self.screen.engine.settings.graphic['screen']['resolution_scale'][1])]
+
             try:
                 self.screen.screen.blit(self.item_sprites[item]['sprite'], item_position)
-                self.item_sprites[item]['position'] = item_position
             except KeyError:
                 pass
 
@@ -119,6 +128,8 @@ class Containter:
                             position[1] + size[1])
             else:
                 position = (position[0] + size[0], position[1])
+
+            self.item_sprites[item]['position'] = item_position
 
     def render_sprites(self):
         self.sprites['label']['position'] = (self.screen.game.drawer.gui['container']['last_position'][0]
@@ -149,7 +160,7 @@ class Containter:
         screen.game.drawer.gui['container']['container'] = None
 
     def take_all_items(self, screen):
-        if len(self.container.content) > 1:
+        if len(self.container.content) >= 1:
             self.container.give_away_all_items(screen.engine.return_player())
             screen.game.drawer.gui['container']['graphic_object'] = None
             screen.game.drawer.gui['container']['graphic_object'] = Containter(screen.game.drawer.gui['container']['container'], screen)
@@ -164,40 +175,42 @@ class Containter:
                 screen.game.drawer.gui['player']['inventory'].render()
 
     def clicked(self, mouse):
-        player = self.screen.game_engine.return_player()
+        player = self.screen.engine.return_player()
 
-        print(self.buttons)
         for button in self.buttons:
-            print('checked')
             if button.is_clicked(mouse):
                 button.on_click()
                 return True
 
-        for item in item_sprites:
-            if self.is_item_sprite_clicked(item_sprites[item]['position'], mouse):
-                if mouse[1][0]:
-                    self.give_away_item(player, self.content[item])
-                    self.screen.game.drawer.gui['container']['graphic_object'] = None
-                    self.screen.game.drawer.gui['container']['graphic_object'] = \
-                        Containter(self.screen.game.drawer.gui['container']['container'], self.screen)
-                    self.screen.game.drawer.gui['container']['graphic_object'].create(self.screen, self.screen.engine.database.item_database)
+        for item in range(len(self.item_sprites)):
+            if self.is_item_sprite_clicked(self.item_sprites[item]['position'], mouse):
+                self.container.give_away_item(self.screen.engine.return_player(), self.container.content[item])
+                self.screen.game.drawer.gui['container']['graphic_object'] = None
+                self.screen.game.drawer.gui['container']['graphic_object'] = Containter(self.screen.game.drawer.gui['container']['container'], self.screen)
+                self.screen.game.drawer.gui['container']['graphic_object'].create(self.screen, self.screen.engine.database.item_database)
+                self.screen.game.drawer.gui['container']['graphic_object'].render()
 
-                    return True
-                if mouse[1][1]:
-                    self.screen.game.drawer.gui['item_details'] = True
-                    self.screen.game.drawer.gui['item_details']['item'] = self.screen.game.drawer.gui['container']['container'].content[item]
-                    self.screen.game.drawer.gui['container']['graphic_object'] = None
-                    self.screen.game.drawer.gui['container']['graphic_object'] = \
-                        Containter(self.screen.game.drawer.gui['container']['container'], self.screen)
-                    self.screen.game.drawer.gui['container']['graphic_object'].create(self.screen, self.screen.engine.database.item_database)
-
-                    return True
-
+                if self.screen.game.gui['inventory']:
+                    self.screen.game.drawer.gui['player']['inventory'] = None
+                    from data.modules.graphic.two_D.player_gui import inventory
+                    self.screen.game.drawer.gui['player']['inventory'] = inventory.Inventory(self.screen, self.screen.engine.return_player().equipment)
+                    self.screen.game.drawer.gui['player']['inventory'].create(self.screen, self.screen.engine.database.item_database)
+                    self.screen.game.drawer.gui['player']['inventory'].render()
 
     def is_item_sprite_clicked(self, item_position, mouse):
-        area = (item_position[0], item_position[1],
-                item_position[0] + 75,
-                item_position[1] + 75)
+            area = (item_position[0], item_position[1],
+                    (item_position[0] + 75),
+                    (item_position[1] + 75))
+            if mouse[0][0] >= area[0] and mouse[0][0] <= area[2] \
+                and mouse[0][1] >= area[1] and mouse[0][1] <= area[3]:
+                return True
+            return False
+
+    def is_clicked(self, mouse):
+        area = (self.position[0], self.position[1],
+                self.position[2],
+                self.position[3])
+
         if mouse[0][0] >= area[0] and mouse[0][0] <= area[2] \
             and mouse[0][1] >= area[1] and mouse[0][1] <= area[3]:
             return True
